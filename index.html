@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Bienvenida</title>
+    <title>Información de Contacto - MonarcaEventsCO</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
@@ -47,18 +47,6 @@
             margin: 4px 0;
             transition: all 0.3s ease;
             border-radius: 3px;
-        }
-
-        .menu-button.active div:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .menu-button.active div:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-button.active div:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         .menu {
@@ -133,14 +121,6 @@
             border-bottom: 2px solid rgba(255, 215, 0, 0.3);
         }
 
-        .hero h2 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            animation: slideInRight 1.5s ease;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
         .highlight {
             color: #FFD700;
             text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
@@ -148,42 +128,34 @@
             display: inline-block;
         }
 
-        .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #FFD700;
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .highlight:hover::after {
-            transform: scaleX(1);
-        }
-
-        .services {
-            padding: 6rem 2rem;
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
             max-width: 1200px;
-            margin: auto;
+            margin: 0 auto;
             animation: fadeInUp 1s ease;
         }
 
-        .services ul li {
+        .social-card {
             background: rgba(30, 30, 30, 0.95);
-            padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            position: relative;
+            border: 2px solid rgba(255, 215, 0, 0.1);
             overflow: hidden;
+            position: relative;
         }
 
-        .services ul li::before {
+        .social-card:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .social-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -195,58 +167,44 @@
             transition: transform 0.6s ease;
         }
 
-        .services ul li:hover::before {
+        .social-card:hover::before {
             transform: translateX(100%);
         }
 
-        .services ul li:hover {
-            transform: translateY(-10px);
-            border-color: #FFD700;
-            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.2);
-        }
-
-        .contact {
-            padding: 6rem 2rem;
-            background: rgba(30, 30, 30, 0.95);
-            border-top: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .contact h2 {
-            color: #FFD700;
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .contact h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #FFD700, transparent);
-        }
-
-        .whatsapp-icon {
-            width: 32px;
-            height: 32px;
-            vertical-align: middle;
-            margin-left: 8px;
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
             transition: all 0.3s ease;
-            border-radius: 50%;
-            padding: 5px;
-            background: rgba(255, 215, 0, 0.1);
         }
 
-        .whatsapp-icon:hover {
-            transform: scale(1.2) rotate(10deg);
+        .social-card:hover .social-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .social-title {
+            color: #FFD700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .social-link {
+            display: inline-block;
+            color: #f1f1f1;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .social-link:hover {
             background: rgba(255, 215, 0, 0.2);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            border-color: #FFD700;
+            transform: scale(1.05);
+            color: #FFD700;
         }
 
         @keyframes fadeIn {
@@ -254,27 +212,25 @@
             to { opacity: 1; }
         }
 
-        @keyframes slideInRight {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
         @keyframes fadeInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { 
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2.2rem;
+            .social-grid {
+                padding: 2rem 1rem;
+                gap: 1.5rem;
             }
 
             .menu {
                 width: 250px;
-            }
-
-            .services ul {
-                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -289,38 +245,47 @@
     </button>
 
     <div class="menu" id="menu">
+        <a href="https://monarcaeventsco.github.io/MonarcaEventsCO/">Inicio</a>
         <a href="https://monarcaeventsco.github.io/Desayunos-MonarcaEventsCO/">Desayunos</a>
-        <a href="https://monarcaeventsco.github.io/Horarios-MonarcaEvenstCO/#">Horarios de Atención</a>
+        <a href="https://monarcaeventsco.github.io/Horarios-MonarcaEvenstCO/">Horarios de Atención</a>
         <a href="#">Información de Contacto</a>
     </div>
 
     <section class="hero">
         <h2>
-            Bienvenido a <span class="highlight">MonarcaEventsCO</span> donde hacemos tus sueños realidad
+            <span class="highlight">Redes de Contacto</span>
         </h2>
-        <p>Transformamos tus momentos en recuerdos inolvidables.</p>
+        <p>Conecta con nosotros y descubre cómo hacer tus eventos inolvidables</p>
     </section>
 
-    <section class="services">
-        <h2>Nuestros Servicios</h2>
-        <ul>
-            <li>Decoración para fiestas y eventos</li>
-            <li><a href="https://monarcaeventsco.github.io/Desayunos-MonarcaEventsCO/" target="_blank" style="color: white;">Desayunos sorpresa personalizados</a></li>
-            <li>Organización de cumpleaños y quinceañeras</li>
-            <li>Eventos corporativos y celebraciones especiales</li>
-        </ul>
-    </section>
+    <section class="social-grid">
+        <div class="social-card">
+            <img src="https://i.imgur.com/BQeNOAJ.jpeg" alt="WhatsApp" class="social-icon">
+            <h3 class="social-title">WhatsApp</h3>
+            <p>Contáctanos directamente para consultas y cotizaciones</p>
+            <a href="https://wa.me/+573174968554" target="_blank" class="social-link">Envíanos un mensaje</a>
+        </div>
 
-    <section class="contact">
-        <h2>Contacto</h2>
-        <p>
-            Si deseas información adicional o tienes alguna consulta, no dudes en contactarnos:<br>
-            <strong>Email:</strong> monarcaeventsco@gmail.com<br>
-            <strong>WhatsApp:</strong> +57 317 4968554
-            <a href="https://wa.me/+573174968554" target="_blank">
-                <img src="https://i.imgur.com/BQeNOAJ.jpeg" alt="WhatsApp" class="whatsapp-icon">
-            </a>
-        </p>
+        <div class="social-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png" alt="Facebook" class="social-icon">
+            <h3 class="social-title">Facebook</h3>
+            <p>Síguenos y conoce nuestras últimas creaciones</p>
+            <a href="https://www.facebook.com/profile.php?id=61571962794072" target="_blank" class="social-link">Visita nuestra página</a>
+        </div>
+
+        <div class="social-card">
+            <img src="https://static.vecteezy.com/system/resources/previews/018/930/572/original/tiktok-logo-tiktok-icon-transparent-free-png.png" alt="TikTok" class="social-icon">
+            <h3 class="social-title">TikTok</h3>
+            <p>Descubre contenido exclusivo y momentos especiales</p>
+            <a href="https://www.tiktok.com/@monarcaeventsco?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">Síguenos en TikTok</a>
+        </div>
+
+        <div class="social-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" class="social-icon">
+            <h3 class="social-title">Instagram</h3>
+            <p>¡Próximamente! Síguenos para ver nuestras historias y publicaciones</p>
+            <a href="#" class="social-link" style="opacity: 0.5; pointer-events: none;">Próximamente</a>
+        </div>
     </section>
 
     <script>
