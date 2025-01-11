@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Bienvenida</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #f1f1f1;
+            overflow-x: hidden;
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 2px solid #FFD700;
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .menu-button:hover {
+            background: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .menu-button div {
+            width: 28px;
+            height: 3px;
+            background-color: #FFD700;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .menu-button.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-button.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-button.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 280px;
+            height: 100%;
+            background: rgba(30, 30, 30, 0.95);
+            color: #f1f1f1;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 30px 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .menu.active {
+            left: 0;
+        }
+
+        .menu a {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid transparent;
+        }
+
+        .menu a:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #FFD700;
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 6rem 1rem;
+            background-color: #1E1E1E;
+            color: white;
+            font-size: 1.2rem;
+            animation: fadeIn 1.5s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: slideInRight 1.5s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .highlight {
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #FFD700;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .highlight:hover::after {
+            transform: scaleX(1);
+        }
+
+        .services {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        .services ul li {
+            background: rgba(30, 30, 30, 0.95);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services ul li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .services ul li:hover::before {
+            transform: translateX(100%);
+        }
+
+        .services ul li:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .contact {
+            padding: 6rem 2rem;
+            background: rgba(30, 30, 30, 0.95);
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .contact h2 {
+            color: #FFD700;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .contact h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+        }
+
+        .whatsapp-icon {
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+            margin-left: 8px;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            padding: 5px;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .whatsapp-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .menu {
+                width: 250px;
+            }
+
+            .services ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <button class="menu-button" onclick="toggleMenu()" id="menuButton">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
+
+    <div class="menu" id="menu">
+        <a href="https://monarcaeventsco.github.io/Desayunos-MonarcaEventsCO/">Desayunos</a>
+        <a href="https://monarcaeventsco.github.io/Horarios-MonarcaEvenstCO/#">Horarios de Atención</a>
+        <a href="#">Información de Contacto</a>
+    </div>
+
+    <section class="hero">
+        <h2>
+            Bienvenido a <span class="highlight">MonarcaEventsCO</span> donde hacemos tus sueños realidad
+        </h2>
+        <p>Transformamos tus momentos en recuerdos inolvidables.</p>
+    </section>
+
+    <section class="services">
+        <h2>Nuestros Servicios</h2>
+        <ul>
+            <li>Decoración para fiestas y eventos</li>
+            <li><a href="https://monarcaeventsco.github.io/Desayunos-MonarcaEventsCO/" target="_blank" style="color: white;">Desayunos sorpresa personalizados</a></li>
+            <li>Organización de cumpleaños y quinceañeras</li>
+            <li>Eventos corporativos y celebraciones especiales</li>
+        </ul>
+    </section>
+
+    <section class="contact">
+        <h2>Contacto</h2>
+        <p>
+            Si deseas información adicional o tienes alguna consulta, no dudes en contactarnos:<br>
+            <strong>Email:</strong> monarcaeventsco@gmail.com<br>
+            <strong>WhatsApp:</strong> +57 317 4968554
+            <a href="https://wa.me/+573174968554" target="_blank">
+                <img src="https://i.imgur.com/BQeNOAJ.jpeg" alt="WhatsApp" class="whatsapp-icon">
+            </a>
+        </p>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            const button = document.getElementById('menuButton');
+            const overlay = document.getElementById('overlay');
+            
+            menu.classList.toggle('active');
+            button.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
